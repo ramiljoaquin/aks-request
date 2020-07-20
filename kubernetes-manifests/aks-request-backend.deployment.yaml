@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aks-request-backend
+  labels:
+    app: aks-request
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aks-request
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: aks-request
+        tier: backend
+    spec:
+      containers:
+      - name: backend
+        image: aks-request-backend
+        ports:
+        - name: http-server
+          containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
