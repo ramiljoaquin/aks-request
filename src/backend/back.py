@@ -26,11 +26,14 @@ def forks_repo(from_workspace, from_repo_slug, access_token, to_workspace, to_re
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    results = 'app_ref:' + app_ref + '\nlocation:' + location + '\nname:' + name + \
-        '\nenvironment:' + environment + '\nowner:' + owner + '\nadmins:' + admins
     print(response.text.encode('utf8'))
 
-    return results.encode('utf8'), 201
+    return jsonify(app_ref=app_ref,
+                   location=location,
+                   name=name,
+                   environment=environment,
+                   owner=owner,
+                   admins=admins)
 
 
 @app.route('/pullrequests/<from_workspace>/<from_repo_slug>/<from_branch>/<access_token>/<to_branch>/<title>', methods=['POST'])
